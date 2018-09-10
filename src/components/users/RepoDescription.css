@@ -1,0 +1,20 @@
+.description-container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.description-heading {
+  letter-spacing: 5px;
+  font-weight: 100;
+}
+
+.description-panel {
+  padding: 1rem;
+}
+
+.description-image {
+  width: 50%;
+  display: block;
+  margin-top: 10px;
+}
