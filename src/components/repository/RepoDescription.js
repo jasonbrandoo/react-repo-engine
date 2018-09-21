@@ -5,12 +5,13 @@ import './RepoDescription.css';
 class RepoDescription extends Component {
   state = {
     description: [],
+    url: this.props.match.url,
   }
 
   componentDidMount() {
-    const url = this.props.location.pathname;
-    const repoUrl = url.substring(1);
-    axios.get(repoUrl)
+    const api = 'https://api.github.com/repos';
+    const { url } = this.state;
+    axios.get(api + url)
       .then(({ data }) => {
         this.setState({
           description: [data],

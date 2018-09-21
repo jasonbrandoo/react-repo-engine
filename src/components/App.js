@@ -4,8 +4,8 @@ import { Provider } from '../context';
 import Navbar from './layout/Navbar';
 import About from './layout/About';
 import Searchbar from './layout/Searchbar';
-import Repos from './users/Repos';
-import RepoDescription from './users/RepoDescription';
+import Repos from './repository/Repos';
+import RepoDescription from './repository/RepoDescription';
 
 import './App.css';
 
@@ -19,7 +19,7 @@ const App = () => (
           <Route exact path="/" component={Repos} />
           <Switch>
             <Route path="/about" component={About} />
-            <Route path="/:repo_url" component={RepoDescription} />
+            <Route path="/:owner/:repo" component={RepoDescription} />
           </Switch>
         </div>
       </React.Fragment>

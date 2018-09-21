@@ -32,7 +32,6 @@ class Repos extends Component {
               {number}
             </li>
           ));
-
           if (reposList === undefined || reposList.length === 0) {
             return <div className="spinner" />;
           } return (
