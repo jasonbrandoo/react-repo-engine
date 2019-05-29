@@ -1,51 +1,70 @@
-import React, { Component } from 'react';
-import { Consumer } from '../../context';
-import './Searchbar.css';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import useGithub from '../../hooks/useGithub';
 
-class Searchbar extends Component {
-  state = {
-    repos: '',
-  }
+const SearchContainer = styled.div`
+  width: 50%;
+  margin: auto;
+`;
 
-  onChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  }
+const Heading = styled.h3`
+  text-align: center;
+  font-size: 2rem;
+  margin: 1rem 0;
+`;
 
-  findRepos = (searchRepos, e) => {
+const Form = styled.form`
+  width: 100%;
+`;
+
+const InputText = styled.input`
+  margin: auto;
+  width: 100%;
+`;
+
+const Button = styled.button`
+  border-radius: 2px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+  width: 50%;
+  margin: auto;
+  margin-top: 1rem;
+`;
+
+const Searchbar = () => {
+  const [name, setName] = useState('');
+  const { findRepos } = useGithub();
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { repos } = this.state;
-    searchRepos(repos);
-  }
+    findRepos(name);
+    setName('');
+  };
 
-  render() {
-    return (
-      <Consumer>
-        {({ searchRepos }) => (
-          <div className="search-bar">
-            <h3 className="search-text">Search Here!!</h3>
-            <form onSubmit={this.findRepos.bind(this, searchRepos)}>
-              <input
-                type="text"
-                name="repos"
-                placeholder="Search user"
-                className="search-input"
-                onChange={this.onChange}
-                required
-              />
-              <button
-                type="submit"
-                className="search-button"
-              >
-              Search
-              </button>
-            </form>
-          </div>
-        )}
-      </Consumer>
-    );
-  }
-}
+  return (
+    <SearchContainer>
+      <Heading>Search Here!!</Heading>
+      <Form onSubmit={handleSubmit}>
+        <InputText
+          type="text"
+          name="repos"
+          placeholder="Search user"
+          className="search-input"
+          onChange={handleChange}
+          value={name}
+          required
+        />
+        <Button type="submit" className="search-button">
+          Search
+        </Button>
+      </Form>
+    </SearchContainer>
+  );
+};
 
 export default Searchbar;

@@ -1,54 +1,25 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useState, createContext } from 'react';
 
-const Context = React.createContext();
+const SearchContext = createContext();
 
-export class Provider extends Component {
-  state = {
-    reposList: [],
-    heading: '',
-    searchRepos: (result) => {
-      this.findRepos(result);
-    },
-  };
+const SearchProvider = (props) => {
+  const [repository, setRepository] = useState([]);
+  const [title, setTitle] = useState('');
+  const [query, setQuery] = useState('javascript');
 
-  componentDidMount() {
-    this.fetchRepos();
-  }
+  return (
+    <SearchContext.Provider
+      value={{
+        repository,
+        setRepository,
+        title,
+        setTitle,
+        query,
+        setQuery,
+      }}
+      {...props}
+    />
+  );
+};
 
-  fetchRepos = () => {
-    axios.get('https://api.github.com/search/repositories?q=language:javascript&sort=star&order=desc')
-      .then(({ data }) => {
-        this.setState({
-          reposList: data.items,
-          heading: 'Top Javascript Repo',
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  findRepos = (result) => {
-    axios.get(`https://api.github.com/search/repositories?q=${result}&sort=star&order=desc`)
-      .then(({ data }) => {
-        this.setState({
-          reposList: data.items,
-          heading: result,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  render() {
-    return (
-      <Context.Provider value={this.state}>
-        {this.props.children}
-      </Context.Provider>
-    );
-  }
-}
-
-export const Consumer = Context.Consumer;
+export { SearchContext, SearchProvider };
