@@ -1,14 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
-import { SearchProvider } from '../context';
 import Navbar from './layout/Navbar';
-import About from './layout/About';
-import Searchbar from './layout/Searchbar';
-import Repos from './repository/Repos';
+import Home from './layout';
 import RepoDescription from './repository/RepoDescription';
-
-import './App.css';
+import About from '../pages/About';
 
 const Container = styled.div`
   width: 80%;
@@ -16,21 +12,18 @@ const Container = styled.div`
 `;
 
 const App = () => (
-  <SearchProvider>
-    <BrowserRouter>
-      <React.Fragment>
-        <Navbar />
-        <Container>
-          <Route exact path="/" component={Searchbar} />
-          <Route exact path="/" component={Repos} />
-          <Switch>
-            <Route path="/about" component={About} />
-            <Route path="/:owner/:repo" component={RepoDescription} />
-          </Switch>
-        </Container>
-      </React.Fragment>
-    </BrowserRouter>
-  </SearchProvider>
+  <BrowserRouter>
+    <React.Fragment>
+      <Navbar />
+      <Container>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/:owner/:repo" component={RepoDescription} />
+        </Switch>
+      </Container>
+    </React.Fragment>
+  </BrowserRouter>
 );
 
 export default App;

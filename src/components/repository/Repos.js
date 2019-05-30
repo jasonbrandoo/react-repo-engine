@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Repo from './Repo';
-import useGithub from '../../hooks/useGithub';
 import './Repos.css';
 
-const Repos = () => {
+const Repos = ({ data }) => {
   const [page, setPage] = useState(1);
-  const { repository, findRepos } = useGithub();
-
-  useEffect(() => {
-    console.log('Component Did Mount');
-    findRepos();
-  }, [findRepos]);
 
   const handlePagination = (e) => {
     setPage(e.target.id);
@@ -18,9 +11,9 @@ const Repos = () => {
 
   const indexOfLastRepos = page * 10;
   const indexOfFirstRepos = indexOfLastRepos - 10;
-  const currentRepos = repository.slice(indexOfFirstRepos, indexOfLastRepos);
+  const currentRepos = data.slice(indexOfFirstRepos, indexOfLastRepos);
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(repository.length / 10); i += 1) {
+  for (let i = 1; i <= Math.ceil(data.length / 10); i += 1) {
     pageNumbers.push(i);
   }
   const renderPageNumbers = pageNumbers.map(number => (
@@ -31,7 +24,7 @@ const Repos = () => {
 
   return (
     <React.Fragment>
-      {repository === undefined || repository.length === 0 ? (
+      {data === undefined || data.length === 0 ? (
         <div className="spinner" />
       ) : (
         <>

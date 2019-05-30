@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useGithub from '../../hooks/useGithub';
 
 const SearchContainer = styled.div`
   width: 50%;
@@ -32,9 +31,8 @@ const Button = styled.button`
   margin-top: 1rem;
 `;
 
-const Searchbar = () => {
+const Searchbar = ({ url }) => {
   const [name, setName] = useState('');
-  const { findRepos } = useGithub();
 
   const handleChange = (e) => {
     setName(e.target.value);
@@ -42,7 +40,7 @@ const Searchbar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    findRepos(name);
+    url(`https://api.github.com/search/repositories?q=language:${name}&sort=star&order=desc`);
     setName('');
   };
 
