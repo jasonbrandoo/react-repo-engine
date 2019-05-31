@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Header = styled.header`
-  background-color: rgb(50, 50, 50);
+  background-color: ${props => props.theme.primary};
   padding: 1rem;
 `;
 
@@ -21,14 +21,11 @@ const Link = ({ className, children, to }) => (
 
 const StyledLink = styled(Link)`
   font-size: 1.5rem;
-  color: palevioletred;
+  font-weight: 700;
+  color: ${props => props.theme.tertiary};
   text-decoration: none;
   margin-right: 1rem;
   transition: color 0.8s ease-out;
-
-  :hover {
-    color: white;
-  }
 `;
 
 const Navbar = () => (

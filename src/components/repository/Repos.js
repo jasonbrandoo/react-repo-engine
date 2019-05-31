@@ -1,6 +1,45 @@
 import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import Repo from './Repo';
-import './Repos.css';
+
+const rotate = keyframes`
+  from {
+        transform: rotate(0deg)
+      }
+      to {
+        transform: rotate(360deg)
+    }
+`;
+
+const Spinner = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 35px;
+  height: 35px;
+  border: 5px solid rgba(189, 189, 189, 0.25);
+  border-left-color: rgba(3, 155, 229, 1);
+  border-top-color: rgba(3, 155, 229, 1);
+  border-radius: 50%;
+  animation: ${rotate} 1s infinite linear;
+`;
+
+const List = styled.div``;
+
+const PaginationButton = styled.div`
+  display: flex;
+  margin-bottom: 1rem;
+`;
+
+const Button = styled.button`
+  background-color: ${props => props.theme.secondary};
+  margin-right: 0.75rem;
+  border: none;
+  font-size: 1.5rem;
+  color: ${props => props.theme.primary};
+  box-shadow: 2px 2px rgb(0, 0, 0, 0.5);
+  border-radius: 1rem;
+`;
 
 const Repos = ({ data }) => {
   const [page, setPage] = useState(1);
@@ -17,24 +56,24 @@ const Repos = ({ data }) => {
     pageNumbers.push(i);
   }
   const renderPageNumbers = pageNumbers.map(number => (
-    <button key={number} id={number} onClick={handlePagination} type="button">
+    <Button key={number} id={number} onClick={handlePagination} type="button">
       {number}
-    </button>
+    </Button>
   ));
 
   return (
     <React.Fragment>
       {data === undefined || data.length === 0 ? (
-        <div className="spinner" />
+        <Spinner />
       ) : (
         <>
           <h1>Title</h1>
-          <div className="list-repo">
+          <List>
             {currentRepos.map(repo => (
               <Repo key={repo.id} repo={repo} />
             ))}
-          </div>
-          <ul className="pagination-button">{renderPageNumbers}</ul>
+          </List>
+          <PaginationButton>{renderPageNumbers}</PaginationButton>
         </>
       )}
     </React.Fragment>

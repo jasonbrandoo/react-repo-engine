@@ -7,6 +7,7 @@ const SearchContainer = styled.div`
 `;
 
 const Heading = styled.h3`
+  color: ${props => props.theme.primary};
   text-align: center;
   font-size: 2rem;
   margin: 1rem 0;
@@ -22,8 +23,13 @@ const InputText = styled.input`
 `;
 
 const Button = styled.button`
-  border-radius: 2px;
-  font-size: 1rem;
+  background-color: ${props => props.theme.secondary};
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: ${props => props.theme.primary};
+  box-shadow: 2px 2px rgb(0, 0, 0, 0.5);
   cursor: pointer;
   display: block;
   width: 50%;
@@ -58,7 +64,7 @@ const Searchbar = ({ url }) => {
           required
         />
         <Button type="submit" className="search-button">
-          Search
+          Find
         </Button>
       </Form>
     </SearchContainer>

@@ -2,10 +2,15 @@
   "extends": "airbnb",
   "parser": "babel-eslint",
   "plugins": ["react-hooks"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "rules": {
+    "no-console": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "linebreak-style": 0,
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/rules-of-hooks": 2,
+    "react-hooks/exhaustive-deps": 1
   }
 }
