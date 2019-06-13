@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import useGithub from '../../hooks/useGithub';
 
@@ -90,7 +89,7 @@ const RepoDescription = ({ url }) => {
 };
 
 RepoDescription.propTypes = {
-  url: PropTypes.object.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default RepoDescription;
