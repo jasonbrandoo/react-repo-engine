@@ -45,12 +45,12 @@ const Spinner = styled.div`
   animation: ${rotate} 1s infinite linear;
 `;
 
-const RepoDescription = ({ match }) => {
-  const [repository, setUrl] = useGithub(`https://api.github.com/repos${match.url}`);
-
+const RepoDescription = ({ url }) => {
+  const [repository] = useGithub(`https://api.github.com/repos${url}`);
+  console.log(repository);
   return (
     <Container>
-      {repository === null ? (
+      {repository.length === 0 ? (
         <Spinner />
       ) : (
         <>
@@ -90,7 +90,7 @@ const RepoDescription = ({ match }) => {
 };
 
 RepoDescription.propTypes = {
-  match: PropTypes.object.isRequired,
+  url: PropTypes.object.isRequired,
 };
 
 export default RepoDescription;

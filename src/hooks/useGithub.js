@@ -4,17 +4,18 @@ import axios from 'axios';
 const useGithub = (query) => {
   const [url, setUrl] = useState(query);
   const [repository, setRepository] = useState([]);
+  console.log(repository);
 
   const findRepos = useCallback(async () => {
     console.log(`Sending http request to ${url}`);
     try {
       const response = await axios(url);
-      setRepository(response.data.items);
+      setRepository(response.data);
     } catch (error) {
       console.log(error);
     }
   }, [url]);
-
+  console.log(repository);
   useEffect(() => {
     console.log('Component did mount');
     let cancel = false;

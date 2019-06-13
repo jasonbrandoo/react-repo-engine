@@ -74,11 +74,11 @@ const Searchbar = ({ url }) => {
 };
 
 Searchbar.defaultProps = {
-  url: '',
+  url: () => {},
 };
 
 Searchbar.propTypes = {
-  url: PropTypes.string,
+  url: PropTypes.func,
 };
 
 export default Searchbar;

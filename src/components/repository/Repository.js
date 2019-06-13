@@ -48,41 +48,37 @@ const Repository = () => {
   const [repository, setUrl] = useGithub(
     'https://api.github.com/search/repositories?q=language:javascript&sort=star&order=desc',
   );
-
+  const { items } = repository;
   const handlePagination = (e) => {
     setPage(e.target.id);
   };
 
-  const indexOfLastRepos = page * 10;
-  const indexOfFirstRepos = indexOfLastRepos - 10;
-  const currentRepos = repository.slice(indexOfFirstRepos, indexOfLastRepos);
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(repository.length / 10); i += 1) {
-    pageNumbers.push(i);
+  if (items !== undefined) {
+    const indexOfLastRepos = page * 10;
+    const indexOfFirstRepos = indexOfLastRepos - 10;
+    const currentRepos = items.slice(indexOfFirstRepos, indexOfLastRepos);
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(items.length / 10); i += 1) {
+      pageNumbers.push(i);
+    }
+    const renderPageNumbers = pageNumbers.map(number => (
+      <Button key={number} id={number} onClick={handlePagination} type="button">
+        {number}
+      </Button>
+    ));
+    return (
+      <React.Fragment>
+        <Searchbar url={setUrl} />
+        <List>
+          {currentRepos.map(repo => (
+            <RepositoryList key={repo.id} repository={repo} url={setUrl} />
+          ))}
+        </List>
+        <PaginationButton>{renderPageNumbers}</PaginationButton>
+      </React.Fragment>
+    );
   }
-  const renderPageNumbers = pageNumbers.map(number => (
-    <Button key={number} id={number} onClick={handlePagination} type="button">
-      {number}
-    </Button>
-  ));
-
-  return (
-    <React.Fragment>
-      <Searchbar url={setUrl} />
-      {repository === undefined || repository.length === 0 ? (
-        <Spinner />
-      ) : (
-        <React.Fragment>
-          <List>
-            {currentRepos.map(repo => (
-              <RepositoryList key={repo.id} repo={repo} />
-            ))}
-          </List>
-          <PaginationButton>{renderPageNumbers}</PaginationButton>
-        </React.Fragment>
-      )}
-    </React.Fragment>
-  );
+  return <Spinner />;
 };
 
 export default Repository;

@@ -1,10 +1,10 @@
 import React from 'react';
 import Page from '../components/Page';
-import Repository from '../components/Repository/Repository';
+import RepoDescription from '../components/Repository/RepoDescription';
 
-const Description = () => (
+const Description = ({ match }) => (
   <Page>
-    <Repository />
+    <RepoDescription url={match.url} />
   </Page>
 );
 
