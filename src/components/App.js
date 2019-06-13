@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
-import Navbar from './layout/Navbar';
-import Home from './layout';
-import RepoDescription from './repository/RepoDescription';
+import Navbar from './Navbar';
+import Home from '../pages/Home';
+import RepoDescription from '../pages/Description';
 import About from '../pages/About';
 
 const Container = styled.div`

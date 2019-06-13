@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const SearchContainer = styled.div`
@@ -35,6 +36,7 @@ const Button = styled.button`
   width: 50%;
   margin: auto;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 const Searchbar = ({ url }) => {
@@ -69,6 +71,14 @@ const Searchbar = ({ url }) => {
       </Form>
     </SearchContainer>
   );
+};
+
+Searchbar.defaultProps = {
+  url: '',
+};
+
+Searchbar.propTypes = {
+  url: PropTypes.string,
 };
 
 export default Searchbar;

@@ -1,20 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 
-const useGithub = () => {
-  const [url, setUrl] = useState('https://api.github.com/search/repositories?q=language:javascript&sort=star&order=desc');
+const useGithub = (query) => {
+  const [url, setUrl] = useState(query);
   const [repository, setRepository] = useState([]);
 
-  const findRepos = useCallback(
-    async () => {
-      try {
-        const response = await axios(url);
-        setRepository(response.data.items);
-      } catch (error) {
-        console.log(error);
-      }
-    }, [url],
-  );
+  const findRepos = useCallback(async () => {
+    console.log(`Sending http request to ${url}`);
+    try {
+      const response = await axios(url);
+      setRepository(response.data.items);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [url]);
 
   useEffect(() => {
     console.log('Component did mount');
@@ -31,10 +30,7 @@ const useGithub = () => {
     };
   }, [findRepos]);
 
-  return {
-    repository,
-    setUrl,
-  };
+  return [repository, setUrl];
 };
 
 export default useGithub;

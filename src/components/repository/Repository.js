@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import Repo from './Repo';
+import RepositoryList from './RepositoryList';
+import Searchbar from './Searchbar';
+import useGithub from '../../hooks/useGithub';
 
 const rotate = keyframes`
   from {
@@ -41,8 +43,11 @@ const Button = styled.button`
   border-radius: 1rem;
 `;
 
-const Repos = ({ data }) => {
+const Repository = () => {
   const [page, setPage] = useState(1);
+  const [repository, setUrl] = useGithub(
+    'https://api.github.com/search/repositories?q=language:javascript&sort=star&order=desc',
+  );
 
   const handlePagination = (e) => {
     setPage(e.target.id);
@@ -50,9 +55,9 @@ const Repos = ({ data }) => {
 
   const indexOfLastRepos = page * 10;
   const indexOfFirstRepos = indexOfLastRepos - 10;
-  const currentRepos = data.slice(indexOfFirstRepos, indexOfLastRepos);
+  const currentRepos = repository.slice(indexOfFirstRepos, indexOfLastRepos);
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(data.length / 10); i += 1) {
+  for (let i = 1; i <= Math.ceil(repository.length / 10); i += 1) {
     pageNumbers.push(i);
   }
   const renderPageNumbers = pageNumbers.map(number => (
@@ -63,21 +68,21 @@ const Repos = ({ data }) => {
 
   return (
     <React.Fragment>
-      {data === undefined || data.length === 0 ? (
+      <Searchbar url={setUrl} />
+      {repository === undefined || repository.length === 0 ? (
         <Spinner />
       ) : (
-        <>
-          <h1>Title</h1>
+        <React.Fragment>
           <List>
             {currentRepos.map(repo => (
-              <Repo key={repo.id} repo={repo} />
+              <RepositoryList key={repo.id} repo={repo} />
             ))}
           </List>
           <PaginationButton>{renderPageNumbers}</PaginationButton>
-        </>
+        </React.Fragment>
       )}
     </React.Fragment>
   );
 };
 
-export default Repos;
+export default Repository;
