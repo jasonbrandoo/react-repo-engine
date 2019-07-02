@@ -19,8 +19,9 @@ const Form = styled.form`
 `;
 
 const InputText = styled.input`
-  margin: auto;
   width: 100%;
+  height: 2rem;
+  border-radius: 5px;
 `;
 
 const Button = styled.button`
@@ -59,7 +60,7 @@ const Searchbar = ({ url }) => {
         <InputText
           type="text"
           name="repos"
-          placeholder="Search user"
+          placeholder="Repository"
           className="search-input"
           onChange={handleChange}
           value={name}
