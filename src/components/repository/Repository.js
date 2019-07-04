@@ -26,6 +26,10 @@ const Spinner = styled.div`
   animation: ${rotate} 1s infinite linear;
 `;
 
+const Error = styled.h1`
+  text-align: center;
+`;
+
 const List = styled.div``;
 
 const PaginationButton = styled.div`
@@ -45,40 +49,45 @@ const Button = styled.button`
 
 const Repository = () => {
   const [page, setPage] = useState(1);
-  const [repository, setUrl] = useGithub(
+  const [repository, setUrl, error, loading] = useGithub(
     'https://api.github.com/search/repositories?q=language:javascript&sort=star&order=desc',
   );
-  const { items } = repository;
+  console.log(repository);
   const handlePagination = (e) => {
     setPage(e.target.id);
   };
 
-  if (items !== undefined) {
-    const indexOfLastRepos = page * 10;
-    const indexOfFirstRepos = indexOfLastRepos - 10;
-    const currentRepos = items.slice(indexOfFirstRepos, indexOfLastRepos);
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(items.length / 10); i += 1) {
-      pageNumbers.push(i);
-    }
-    const renderPageNumbers = pageNumbers.map(number => (
-      <Button key={number} id={number} onClick={handlePagination} type="button">
-        {number}
-      </Button>
-    ));
-    return (
-      <React.Fragment>
-        <Searchbar url={setUrl} />
-        <List>
-          {currentRepos.map(repo => (
-            <RepositoryList key={repo.id} repository={repo} url={setUrl} />
-          ))}
-        </List>
-        <PaginationButton>{renderPageNumbers}</PaginationButton>
-      </React.Fragment>
-    );
+  const indexOfLastRepos = page * 10;
+  const indexOfFirstRepos = indexOfLastRepos - 10;
+  const currentRepos = repository.slice(indexOfFirstRepos, indexOfLastRepos);
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(repository.length / 10); i += 1) {
+    pageNumbers.push(i);
   }
-  return <Spinner />;
+  const renderPageNumbers = pageNumbers.map(number => (
+    <Button key={number} id={number} onClick={handlePagination} type="button">
+      {number}
+    </Button>
+  ));
+
+  return (
+    <React.Fragment>
+      <Searchbar url={setUrl} />
+      {error && <Error>Something went error</Error>}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <React.Fragment>
+          <List>
+            {currentRepos.map(repo => (
+              <RepositoryList key={repo.id} repository={repo} url={setUrl} />
+            ))}
+          </List>
+          <PaginationButton>{renderPageNumbers}</PaginationButton>
+        </React.Fragment>
+      )}
+    </React.Fragment>
+  );
 };
 
 export default Repository;
