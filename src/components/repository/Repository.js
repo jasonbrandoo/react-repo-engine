@@ -53,7 +53,7 @@ const Repository = () => {
     'https://api.github.com/search/repositories?q=language:javascript&sort=star&order=desc',
   );
   console.log(repository);
-  const handlePagination = (e) => {
+  const handlePagination = e => {
     setPage(e.target.id);
   };
 

@@ -62,24 +62,19 @@ const RepoDescription = ({ url }) => {
           <Panel>
             <Heading>{repository.full_name}</Heading>
             <p>
-              Language :
-              <span>{repository.language}</span>
+              Language :<span>{repository.language}</span>
             </p>
             <p>
-              Stars :
-              <span>{repository.stargazers_count}</span>
+              Stars :<span>{repository.stargazers_count}</span>
             </p>
             <p>
-              Forks :
-              <span>{repository.forks}</span>
+              Forks :<span>{repository.forks}</span>
             </p>
             <p>
-              Watchers :
-              <span>{repository.watchers}</span>
+              Watchers :<span>{repository.watchers}</span>
             </p>
             <p>
-              License :
-              <span>{repository.license.name}</span>
+              License :<span>{repository.license.name}</span>
             </p>
           </Panel>
         </>

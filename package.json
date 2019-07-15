@@ -14,16 +14,22 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom --coverage",
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src/**/**/*.js --fix"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.0.0",
+    "@testing-library/react": "^8.0.5",
     "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-hooks": "^1.6.0"
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "prettier": "^1.18.2"
   },
   "browserslist": [
     ">0.2%",

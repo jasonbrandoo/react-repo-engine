@@ -7,15 +7,14 @@ const SearchContainer = styled.div`
   margin: auto;
 `;
 
-const Heading = styled.h3`
+const Heading = styled.label`
   color: ${props => props.theme.primary};
-  text-align: center;
   font-size: 2rem;
-  margin: 1rem 0;
 `;
 
 const Form = styled.form`
   width: 100%;
+  margin-top: 1rem;
 `;
 
 const InputText = styled.input`
@@ -43,21 +42,24 @@ const Button = styled.button`
 const Searchbar = ({ url }) => {
   const [name, setName] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setName(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    url(`https://api.github.com/search/repositories?q=language:${name}&sort=star&order=desc`);
+    url(
+      `https://api.github.com/search/repositories?q=language:${name}&sort=star&order=desc`,
+    );
     setName('');
   };
 
   return (
     <SearchContainer>
-      <Heading>Search Here!!</Heading>
       <Form onSubmit={handleSubmit}>
+        <Heading htmlFor="search">Search</Heading>
         <InputText
+          id="search"
           type="text"
           name="repos"
           placeholder="Repository"

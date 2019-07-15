@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -38,4 +39,11 @@ const Navbar = () => (
     </Header>
   </React.Fragment>
 );
+
+Link.propTypes = {
+  className: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
+};
+
 export default Navbar;

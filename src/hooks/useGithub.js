@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 
-const useGithub = (query) => {
+const useGithub = query => {
   const [url, setUrl] = useState(query);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
